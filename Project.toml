@@ -3,6 +3,15 @@ uuid = "232a1a66-8797-11e9-1ecf-73ad342ede65"
 authors = ["wakakusa"]
 version = "0.1.0"
 
+[deps]
+Cbc = "9961bab8-2fa3-5c5a-9d89-47fab24efd76"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+GR = "28b8d3ca-fb5f-59d9-8090-bfdbd6d07a71"
+JuMP = "4076af6c-e467-56ae-b986-b466b2749572"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+XLSX = "fdbf4ff8-1666-58a4-91e7-1b58723a45e0"
+
 [compat]
 julia = "1.1"
 
