@@ -26,17 +26,27 @@ function uipathorchestratorschedulreadjustment(scheduleplan::DataFrame,robotn::I
   ## ジョブ実行時間
    ###割り当てるコマ数を算出
   for i in 1:jobn
-    runtime[i]=1+scheduleplan[i,:runtime]/run_unit_time
+    runtime[i]=scheduleplan[i,:runtime]/run_unit_time
   end
 
   ###要調整 ジョブに余裕を持たせるかどうか
   #runtime=runtime.+1
 
   ## 目的関数
-  JuMP.@objective(m1, Max, sum(s[1:jobn,1:timen] ))
+  JuMP.@objective(m1, Min, sum(scheduleplan[1:end,:runtime])/run_unit_time-sum(s[1:jobn,1:timen] ))
   JuMP.@objective(m1, Min, sum(r[1:robotn,1:timen,1:jobn] ))
 
   ## 制約条件
+  ### ロボット同時実行制限
+  for  i in 1:jobn
+    sigma=0
+    for j in 1:timen
+      for k in 1: robotn
+
+      end
+    end
+  end 
+
   ### ジョブ実行時間予約指定
   for i in 1:jobn
     flag =true
@@ -56,13 +66,7 @@ function uipathorchestratorschedulreadjustment(scheduleplan::DataFrame,robotn::I
     JuMP.@constraint(m1,sum(s[i,1:timen])==runtime[i])
   end
 
-  ### ロボット同時実行制限
-  for i in 1 :robotn
-    for j in 1:timen
-      JuMP.@constraint(m1,sum(r[i,j,1:jobn])<=1)
-    end
-  end
-
+  ### ロボット同時実行制限(ロボット数を超過させない)
   for i in 1 :timen
     JuMP.@constraint(m1,sum(s[1:jobn,i])<=robotn)
   end
@@ -84,8 +88,7 @@ function uipathorchestratorschedulreadjustment(scheduleplan::DataFrame,robotn::I
   status = JuMP.optimize!(m1)
 
   ## スケジュール案表示
-  plan=Matrix{Int}(undef,jobn,timen)
-  plan.=0
+  plan=zeros(Int,jobn,timen)
 
   for i in 1:jobn
     temp=sort(JuMP.value.(s[i,1:timen]) ,rev=true)[1:runtime[i]]
@@ -102,15 +105,6 @@ function uipathorchestratorschedulreadjustment(scheduleplan::DataFrame,robotn::I
   return plan,r
 end
 
-function plotplan(plan::Array,scheduleplan::DataFrame)
-  gr()
-  xs = map(String,names(scheduleplan)[6:end] )
-  ys = map(String,scheduleplan[:,:jobname])
-  plot=Plots.heatmap(xs, ys, plan, legend=false,c=ColorGradient([:white,:blue]),framestyle=[:box])
-end
 
-function uipathorchestratorschedulrecreate(ExcelFilePath::String)
-  scheduleplan,robotn,jobn,timen=readprerequisite(ExcelFilePath)
-  plan=uipathorchestratorschedulreadjustment(scheduleplan,robotn,jobn,timen)
-  plotplan(plan,scheduleplan)
-end
+
+

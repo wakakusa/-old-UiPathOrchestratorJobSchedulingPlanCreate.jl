@@ -4,3 +4,5 @@ JuMP
 Cbc
 XLSX
 DataFrames
+Plots
+PlotlyJS
