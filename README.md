@@ -15,8 +15,8 @@ uipath Orchestatorで効率的なジョブ実行（必要最低限のロボッ�
 ファイル　./test/schedule.xlsxをコピーして修正してください。  
 ExcelFilePathにはコピーしたschedule.xlsxまでのフルパスを指定してください
 
-using UiPathOrchestratorJobSchedulingPlanCreate
-ExcelFilePath=/home/wakakusa/schedule.xlsx
+using UiPathOrchestratorJobSchedulingPlanCreate  
+ExcelFilePath=/home/wakakusa/schedule.xlsx  
 UiPathOrchestratorJobSchedulingPlanCreate.uipathorchestratorschedulrecreate(ExcelFilePath)
 
 ## 今後の計画
