@@ -4,6 +4,7 @@ function plotplan1(plan::Array,scheduleplan::DataFrame;plotengine="gr")
   xs = map(String,names(scheduleplan)[6:end] )
   ys = map(String,scheduleplan[:,:jobname])
   plot=Plots.heatmap(xs, ys, plan, legend=false,c=ColorGradient([:white,:blue]))
+  gui(plot)
 end
 
 function plotplan2(plan::Array,scheduleplan::DataFrame;plotengine="gr")
@@ -15,7 +16,7 @@ function plotplan2(plan::Array,scheduleplan::DataFrame;plotengine="gr")
 end
 
 function exportplan(plan::Array,r::Array;ExcelFilePath::String="")
-  if ExcelFilePath=="" 
+  if(ExcelFilePath=="")
     ExcelFilePath="UiPathOrchestratorJobSchedulingPlan.xlsx"
   end
 
