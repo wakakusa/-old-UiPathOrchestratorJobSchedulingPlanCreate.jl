@@ -13,7 +13,8 @@ include("output.jl")
 
 function uipathorchestratorschedulrecreate(ExcelFilePath::String)
   scheduleplan,robotn,run_unit_time,jobn,timen=readprerequisite(ExcelFilePath)
-  plan,r=uipathorchestratorschedulreadjustment(scheduleplan,robotn,run_unit_time,jobn,timen)
+  plan,r,runtime=uipathorchestratorschedulreadjustment(scheduleplan,robotn,run_unit_time,jobn,timen)
+  adjustedresultcheck(plan,runtime)
   plotplan2(plan,scheduleplan)
 end
 

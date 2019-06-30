@@ -102,9 +102,30 @@ function uipathorchestratorschedulreadjustment(scheduleplan::DataFrame,robotn::I
     end
   end
 
-  return plan,r
+  return plan,r,runtime
 end
 
+function adjustedresultcheck(plan::Array,runtime::Array)
+  adjustedresultcheckmastarflag=true
+  jobn,timen=size(plan)
 
+  for i in 1:jobn
+    adjustedresultcheckflag1=true 
+    for j in 1:timen
+      if(adjustedresultcheckmastarflag && plan[i,j]==1 && adjustedresultcheckflag1)
+        adjustedresultcheckflag1=false
+        if(sum(plan[i,j:(j+runtime[i]-1)])!=runtime[i])
+          adjustedresultcheckmastarflag=false
+        end
+      end
+    end
+  end
 
+  return if(adjustedresultcheckmastarflag==false)
+           zeros(Int,jobn,timen)
+         else
+          plan
+         end
+
+end
 
