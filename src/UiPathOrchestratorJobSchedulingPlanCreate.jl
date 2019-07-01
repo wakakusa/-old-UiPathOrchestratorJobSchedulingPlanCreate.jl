@@ -11,11 +11,18 @@ module UiPathOrchestratorJobSchedulingPlanCreate
 include("core.jl")
 include("output.jl")
 
-function uipathorchestratorschedulrecreate(ExcelFilePath::String)
+function uipathorchestratorschedulrecreate(ExcelFilePath::String;exportplan::Bool=false,ExportExcelFilePath::String="")
   scheduleplan,robotn,run_unit_time,jobn,timen=readprerequisite(ExcelFilePath)
   plan,r,runtime=uipathorchestratorschedulreadjustment(scheduleplan,robotn,run_unit_time,jobn,timen)
   adjustedresultcheck(plan,runtime)
   plotplan2(plan,scheduleplan)
+
+  if(exportplan)
+    exportplan(plan,r,ExcelFilePath=ExportExcelFilePath)
+  end
+
 end
 
+export uipathorchestratorschedulrecreate,readprerequisite,uipathorchestratorschedulreadjustment,adjustedresultcheck
+export exportplan,plotplan,plotplan1,plotplan2
 end # module
