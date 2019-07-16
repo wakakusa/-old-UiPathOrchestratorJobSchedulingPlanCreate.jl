@@ -27,5 +27,5 @@ using XLSX
     
     output=DataFrames.DataFrame(XLSX.readtable(joinpath(@__DIR__, "scheduleoutput.xlsx"), "REPORT_jobplan")...)
     plan,r,runtime=uipathorchestratorschedulreadjustment(scheduleplan,robotn,run_unit_time,jobn,timen)
-    @test adjustedresultcheck(plan,runtime) == convert(Matrix,output)
+    @test adjustedresultcheck(plan,runtime) == convert(Matrix,output[:,2:end])
 end

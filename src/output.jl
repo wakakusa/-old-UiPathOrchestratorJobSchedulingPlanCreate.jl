@@ -25,6 +25,8 @@ function exportplan(plan::Array,scheduleplan::DataFrame;ExcelFilePath::String=""
     planwork[:,i]=plan[:,i]
   end
 
+  planwork=hcat(scheduleplan[1],planwork)
+
  XLSX.writetable(ExcelFilePath, REPORT_jobplan=( collect(DataFrames.eachcol(planwork)), DataFrames.names(planwork) )  )
 end
 
