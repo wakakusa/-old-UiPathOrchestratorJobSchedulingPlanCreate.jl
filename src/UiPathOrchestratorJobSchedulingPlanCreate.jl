@@ -15,7 +15,7 @@ function uipathorchestratorschedulrecreate(ExcelFilePath::String;exportplan::Boo
   scheduleplan,robotn,run_unit_time,jobn,timen=readprerequisite(ExcelFilePath)
   plan,r,runtime=uipathorchestratorschedulreadjustment(scheduleplan,robotn,run_unit_time,jobn,timen)
   plan=adjustedresultcheck(plan,runtime)
-  plotplan2(plan,scheduleplan)
+#  plotplan2(plan,scheduleplan)
 
   if(exportplan)
     exportplan(plan,r,ExcelFilePath=ExportExcelFilePath)

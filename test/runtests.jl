@@ -22,8 +22,9 @@ using XLSX
     schedule=DataFrame(jobname=jobname,runtime=runtime,Specifiedtime=Specifiedtime)
 
     FilePath=joinpath(@__DIR__, "schedule.xlsx")
-    @test UiPathOrchestratorJobSchedulingPlanCreate.readprerequisite(FilePath)[1][:,1:3] == schedule
-    @test UiPathOrchestratorJobSchedulingPlanCreate.readprerequisite(FilePath)[2:5] == (3,15,6,9)
+    scheduleplan,robotn,run_unit_time,jobn,timen=UiPathOrchestratorJobSchedulingPlanCreate.readprerequisite(FilePath)
+    @test scheduleplan[:,1:3] == schedule
+    @test (robotn,run_unit_time,jobn,timen) == (6,15,10,9)
     
     output=DataFrames.DataFrame(XLSX.readtable(joinpath(@__DIR__, "scheduleoutput.xlsx"), "REPORT_jobplan")...)
     plan,r,runtime=uipathorchestratorschedulreadjustment(scheduleplan,robotn,run_unit_time,jobn,timen)
