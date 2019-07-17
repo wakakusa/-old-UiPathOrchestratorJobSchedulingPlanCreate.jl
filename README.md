@@ -1,8 +1,9 @@
 # UiPathOrchestratorJobSchedulingPlanCreate
 
-[![Build Status](https://travis-ci.com/wakakusa/UiPathOrchestratorJobSchedulingPlanCreate.jl.svg?branch=master)](https://travis-ci.com/wakakusa/UiPathOrchestratorJobSchedulingPlanCreate.jl)
-[![Codecov](https://codecov.io/gh/wakakusa/UiPathOrchestratorJobSchedulingPlanCreate.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/wakakusa/UiPathOrchestratorJobSchedulingPlanCreate.jl)
-[![Coverage Status](https://coveralls.io/repos/github/wakakusa/UiPathOrchestratorJobSchedulingPlanCreate/badge.svg?branch=master)](https://coveralls.io/github/wakakusa/UiPathOrchestratorJobSchedulingPlanCreate?branch=master)
+[![Build Status](https://travis-ci.com/wakakusa/UiPathOrchestratorJobSchedulingPlanCreate.jl.svg?branch=master)](https://travis-ci.com/wakakusa/UiPathOrchestratorJobSchedulingPlanCreate.git)
+[![Codecov](https://codecov.io/gh/wakakusa/UiPathOrchestratorJobSchedulingPlanCreate.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/wakakusa/UiPathOrchestratorJobSchedulingPlanCreate.git)
+[![Coveralls](https://coveralls.io/repos/github/wakakusa/UiPathOrchestratorJobSchedulingPlanCreate.git/badge.svg?branch=master)](https://coveralls.io/github/wakakusa/UiPathOrchestratorJobSchedulingPlanCreate.git?branch=master)
+
 ## これは何？
 uipath Orchestatorで効率的なジョブ実行（必要最低限のロボットで実行）ができるようにジョブのタイムスケジュールを作成するプログラムです
 
