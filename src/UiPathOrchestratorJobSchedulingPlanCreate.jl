@@ -21,6 +21,8 @@ function uipathorchestratorschedulrecreate(ExcelFilePath::String;exportplan::Boo
     exportplan(plan,r,ExcelFilePath=ExportExcelFilePath)
   end
 
+  return plan
+
 end
 
 export uipathorchestratorschedulrecreate,readprerequisite,uipathorchestratorschedulreadjustment,adjustedresultcheck

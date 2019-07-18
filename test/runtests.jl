@@ -21,12 +21,21 @@ using XLSX
 #    02:00:00=Array{Any}([])
     schedule=DataFrame(jobname=jobname,runtime=runtime,Specifiedtime=Specifiedtime)
 
-    FilePath=joinpath(@__DIR__, "schedule.xlsx")
-    scheduleplan,robotn,run_unit_time,jobn,timen=UiPathOrchestratorJobSchedulingPlanCreate.readprerequisite(FilePath)
+    InputFilePath=joinpath(@__DIR__, "schedule.xlsx")
+    OutputFilePath=joinpath(@__DIR__, "scheduleoutput.xlsx")
+
+    scheduleplan,robotn,run_unit_time,jobn,timen=UiPathOrchestratorJobSchedulingPlanCreate.readprerequisite(InputFilePath)
     @test scheduleplan[:,1:3] == schedule
     @test (robotn,run_unit_time,jobn,timen) == (6,15,10,9)
     
-    output=DataFrames.DataFrame(XLSX.readtable(joinpath(@__DIR__, "scheduleoutput.xlsx"), "REPORT_jobplan")...)
+    output=DataFrames.DataFrame(XLSX.readtable(OutputFilePath, "REPORT_jobplan")...)
     plan,r,runtime=uipathorchestratorschedulreadjustment(scheduleplan,robotn,run_unit_time,jobn,timen)
     @test adjustedresultcheck(plan,runtime) == convert(Matrix,output[:,2:end])
+    @test uipathorchestratorschedulrecreate(InputFilePath) == convert(Matrix,output[:,2:end])
+    
+    #ジョブスケジュール作成失敗の場合のテスト
+    robotn=1
+    plan,r,runtime=uipathorchestratorschedulreadjustment(scheduleplan,robotn,run_unit_time,jobn,timen)
+    @test adjustedresultcheck(plan,runtime) == zeros(Int,jobn,timen)
+
 end

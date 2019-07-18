@@ -121,11 +121,11 @@ function adjustedresultcheck(plan::Array,runtime::Array)
     end
   end
 
-  return if(adjustedresultcheckmastarflag==false)
-           zeros(Int,jobn,timen)
-         else
-          plan
-         end
+  if(adjustedresultcheckmastarflag==false)
+    plan=zeros(Int,jobn,timen)
+  end
+
+  return plan
 
 end
 
