@@ -30,8 +30,8 @@ using XLSX
     
     output=DataFrames.DataFrame(XLSX.readtable(OutputFilePath, "REPORT_jobplan")...)
     plan,r,runtime=uipathorchestratorschedulreadjustment(scheduleplan,robotn,run_unit_time,jobn,timen)
-    @test adjustedresultcheck(plan,runtime) == convert(Matrix,output[:,2:end])
-    @test uipathorchestratorschedulrecreate(InputFilePath) == convert(Matrix,output[:,2:end])
+    @test adjustedresultcheck(plan,runtime,scheduleplan) == output
+    @test uipathorchestratorschedulrecreate(InputFilePath) == output
     
     #ジョブスケジュール作成失敗の場合のテスト
     robotn=1

@@ -105,7 +105,7 @@ function uipathorchestratorschedulreadjustment(scheduleplan::DataFrame,robotn::I
   return plan,r,runtime
 end
 
-function adjustedresultcheck(plan::Array,runtime::Array)
+function adjustedresultcheck(plan::Array,runtime::Array,scheduleplan::DataFrame)
   adjustedresultcheckmastarflag=true
   jobn,timen=size(plan)
 
@@ -125,7 +125,14 @@ function adjustedresultcheck(plan::Array,runtime::Array)
     plan=zeros(Int,jobn,timen)
   end
 
-  return plan
+  result=scheduleplan[:,1:2 ]
+  result=hcat(result,scheduleplan[:,6:end ])
+
+  for i in 3:size(result)[2]
+    result[:,i]=plan[:,i-2]
+  end
+  
+  return result
 
 end
 

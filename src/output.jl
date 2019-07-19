@@ -1,51 +1,52 @@
-function plotplan1(plan::Array,scheduleplan::DataFrame;plotengine="gr")
+function plotplanmaster(plan::DataFrame)
+  xs = map(String,names(plan)[3:end] )
+  ys = map(String,plan[:,:jobname])
+
+  plot=Plots.heatmap(xs, ys, convert(Matrix,plan[:,3:end]), legend=false,c=ColorGradient([:white,:blue]))
+
+  return plot
+
+end
+
+
+function plotplan1(plan::DataFrame)
   gr()
 
-  xs = map(String,names(scheduleplan)[6:end] )
-  ys = map(String,scheduleplan[:,:jobname])
-  plot=Plots.heatmap(xs, ys, plan, legend=false,c=ColorGradient([:white,:blue]))
+  plot=plotplanmaster(plan)
   gui(plot)
 end
 
-function plotplan2(plan::Array,scheduleplan::DataFrame;plotengine="gr")
+function plotplan2(plan::DataFrame)
   plotlyjs()
 
-  xs = map(String,names(scheduleplan)[6:end] )
-  ys = map(String,scheduleplan[:,:jobname])
-  plot=Plots.heatmap(xs, ys, plan, legend=false,c=ColorGradient([:white,:blue]))
+  plot=plotplanmaster(plan)
+  gui(plot)
 end
 
-function exportplan(plan::Array,scheduleplan::DataFrame;ExcelFilePath::String="")
+function exportplan(plan::DataFrame;ExcelFilePath::String="")
   if(ExcelFilePath=="")
     ExcelFilePath="UiPathOrchestratorJobSchedulingPlan.xlsx"
   end
-
-  planwork=scheduleplan[6:end]
-  for i in 1:size(plan)[2]
-    planwork[:,i]=plan[:,i]
-  end
-
-  planwork=hcat(scheduleplan[1],planwork)
-
- XLSX.writetable(ExcelFilePath, REPORT_jobplan=( collect(DataFrames.eachcol(planwork)), DataFrames.names(planwork) )  )
+ 
+ XLSX.writetable(ExcelFilePath, REPORT_jobplan=( collect(DataFrames.eachcol(plan)), DataFrames.names(plan) )  )
 end
 
-function exportfullplan(plan::Array,r::Array,scheduleplan::DataFrame;ExcelFilePath::String="")
-  if(ExcelFilePath=="")
-    ExcelFilePath="UiPathOrchestratorJobSchedulingPlan.xlsx"
-  end
-
-  planwork=scheduleplan[6:end]
-  for i in 1:size(plan)[2]
-    planwork[:,i]=plan[:,i]
-  end
-
-  rwork=scheduleplan[6:end]
-  for i in 1:size(plan)[2]
-    rwork[:,i]=r[:,i]
-  end
-
- XLSX.writetable(ExcelFilePath, REPORT_jobplan=( collect(DataFrames.eachcol(planwork)), DataFrames.names(planwork) ), REPORT_robotplan=( collect(DataFrames.eachcol(rwork)), DataFrames.names(rwork) ))
-end
+#function exportfullplan(plan::Array,r::Array,scheduleplan::DataFrame;ExcelFilePath::String="")
+#  if(ExcelFilePath=="")
+#    ExcelFilePath="UiPathOrchestratorJobSchedulingPlan.xlsx"
+#  end
+#
+#  planwork=scheduleplan[6:end]
+#  for i in 1:size(plan)[2]
+#    planwork[:,i]=plan[:,i]
+#  end
+#
+#  rwork=scheduleplan[6:end]
+#  for i in 1:size(plan)[2]
+#    rwork[:,i]=r[:,i]
+#  end
+#
+# XLSX.writetable(ExcelFilePath, REPORT_jobplan=( collect(DataFrames.eachcol(planwork)), DataFrames.names(planwork) ), REPORT_robotplan=( collect(DataFrames.eachcol(rwork)), DataFrames.names(rwork) ))
+#end
 
 plotplan=plotplan2
