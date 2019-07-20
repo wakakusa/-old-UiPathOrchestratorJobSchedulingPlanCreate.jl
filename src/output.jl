@@ -9,14 +9,14 @@ function plotplanmaster(plan::DataFrame)
 end
 
 
-function plotplan1(plan::DataFrame)
+function plotplangr(plan::DataFrame)
   gr()
 
   plot=plotplanmaster(plan)
   gui(plot)
 end
 
-function plotplan2(plan::DataFrame)
+function plotplanplotlyjs(plan::DataFrame)
   plotlyjs()
 
   plot=plotplanmaster(plan)
@@ -49,4 +49,4 @@ end
 # XLSX.writetable(ExcelFilePath, REPORT_jobplan=( collect(DataFrames.eachcol(planwork)), DataFrames.names(planwork) ), REPORT_robotplan=( collect(DataFrames.eachcol(rwork)), DataFrames.names(rwork) ))
 #end
 
-plotplan=plotplan2
+plotplan=plotplanplotlyjs
