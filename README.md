@@ -7,8 +7,9 @@
 Uipath Orchestatorで効率的なジョブ実行（必要最低限のロボットで実行）ができるようにジョブのタイムスケジュールを作成するプログラムです
 
 ## インストール方法
-] add https://github.com/wakakusa/UiPathOrchestratorJobSchedulingPlanCreate.git  
-でプログラムがインストールされます
+julia>]
+(v1.1) add https://github.com/wakakusa/UiPathOrchestratorJobSchedulingPlanCreate.git  
+でプログラムがインストールされます。括弧内の数字は、利用しているバージョンが表示されます。
 
 ## 使い方
 ファイル　./test/schedule.xlsxをコピーして修正してください。  
@@ -20,4 +21,4 @@ plan=adjustedresultcheck(plan,runtime)
 plotplan2(plan,scheduleplan)  
 
 ## 今後の計画
-計算結果のExcel出力などなど
+いろいろと機能追加予定
