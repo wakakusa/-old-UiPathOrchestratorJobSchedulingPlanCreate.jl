@@ -4,8 +4,8 @@ function readprerequisite(ExcelFilePath::String)
   scheduleplan=DataFrames.DataFrame(XLSX.readtable(ExcelFilePath, "schedule")...)
 
   # 前提条件設定
-  robotn=parameters[parameters[:parameter] .== "all_run_robot",:Int][1] #ロボット
-  run_unit_time=parameters[parameters[:parameter] .== "run_unit_time",:Int][1] #実行単位時間、コマ割時間
+  robotn=parameters[parameters[:,:parameter] .== "all_run_robot",:Int][1] #ロボット
+  run_unit_time=parameters[parameters[:,:parameter] .== "run_unit_time",:Int][1] #実行単位時間、コマ割時間
   jobn=size(scheduleplan)[1] #ジョブ数
   timen=size(scheduleplan)[2]-5 #時間コマ数
 
@@ -18,10 +18,10 @@ function uipathorchestratorschedulreadjustment(scheduleplan::DataFrame,robotn::I
 
   ## 変数
  JuMP. @variable(m1, 0<=s[1:jobn,1:timen] <=1,Bin ) #ジョブ毎のコマ割りごとに実行有無を表示
-  JuMP.@variable(m1, 0<=r[1:robotn,1:timen,1:jobn] <=1,Bin ) #ロボット毎のコマ割りごとに実行有無を表示
+ JuMP.@variable(m1, 0<=r[1:robotn,1:timen,1:jobn] <=1,Bin ) #ロボット毎のコマ割りごとに実行有無を表示
 
   ## 定数
-  runtime=Vector{Int}(undef,jobn) #ジョブ毎の実行時間
+   runtime=zeros(Int,jobn,1) #ジョブ毎の実行時間
 
   ## ジョブ実行時間
    ###割り当てるコマ数を算出
@@ -125,13 +125,10 @@ function adjustedresultcheck(plan::Array,runtime::Array,scheduleplan::DataFrame)
     plan=zeros(Int,jobn,timen)
   end
 
-  result=scheduleplan[:,1:2 ]
-  result=hcat(result,scheduleplan[:,6:end ])
+  result=scheduleplan[:,6:end ]
+  result[:,:].= plan
+  result=hcat(scheduleplan[:,1:2 ] , result)
 
-  for i in 3:size(result)[2]
-    result[:,i]=plan[:,i-2]
-  end
-  
   return result
 
 end
