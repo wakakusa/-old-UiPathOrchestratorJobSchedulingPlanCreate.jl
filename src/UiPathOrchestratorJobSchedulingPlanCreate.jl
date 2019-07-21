@@ -22,7 +22,7 @@ function uipathorchestratorschedulrecreate(ExcelFilePath::String;exportplan::Boo
     plotplangr(plan)
   elseif(plotengine=="off"||plotengine=="")
   else
-    println("PlotlyJS,GR,offを選択してください")
+    println("plotengineはPlotlyJS,GR,offのどれかを選択してください")
   end
 
   if(exportplan)

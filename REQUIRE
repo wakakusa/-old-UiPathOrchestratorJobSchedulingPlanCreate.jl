@@ -4,7 +4,7 @@ JuMP
 Cbc
 XLSX
 DataFrames
-Plots
-PlotlyJS
 Blink
 ORCA
+Plots
+PlotlyJS
