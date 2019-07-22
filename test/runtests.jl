@@ -50,7 +50,7 @@ using UiPathOrchestratorJobSchedulingPlanCreate
     @test plan == output
     @test uipathorchestratorschedulrecreate(InputFilePath,plotengine="off") == output
     @test uipathorchestratorschedulrecreate(InputFilePath,plotengine="GR") == output
-    if(isapple())
+    if Sys.isapple()
         @test uipathorchestratorschedulrecreate(InputFilePath,plotengine="PlotlyJS") == output
     end
  @test uipathorchestratorschedulrecreate(InputFilePath,plotengine="それ以外") == output
