@@ -11,7 +11,7 @@ module UiPathOrchestratorJobSchedulingPlanCreate
 include("core.jl")
 include("output.jl")
 
-function uipathorchestratorschedulrecreate(ExcelFilePath::String;exportplan::Bool=false,ExportExcelFilePath::String="",plotengine="PlotlyJS")
+function uipathorchestratorschedulrecreate(ExcelFilePath::String;planexport::Bool=false,ExportExcelFilePath::String="",plotengine="PlotlyJS")
   scheduleplan,robotn,run_unit_time,jobn,timen=readprerequisite(ExcelFilePath)
   plan,r,runtime=uipathorchestratorschedulreadjustment(scheduleplan,robotn,run_unit_time,jobn,timen)
   plan=adjustedresultcheck(plan,runtime,scheduleplan)
@@ -25,8 +25,8 @@ function uipathorchestratorschedulrecreate(ExcelFilePath::String;exportplan::Boo
     println("plotengineはPlotlyJS,GR,offのどれかを選択してください")
   end
 
-  if(exportplan)
-    exportplan(plan,r,ExcelFilePath=ExportExcelFilePath)
+  if(planexport)
+    exportplan(plan,ExcelFilePath=ExportExcelFilePath)
   end
 
   return plan

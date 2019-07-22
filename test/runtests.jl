@@ -50,12 +50,13 @@ using UiPathOrchestratorJobSchedulingPlanCreate
     @test plan == output
     @test uipathorchestratorschedulrecreate(InputFilePath,plotengine="off") == output
     @test uipathorchestratorschedulrecreate(InputFilePath,plotengine="GR") == output
+    @test uipathorchestratorschedulrecreate(InputFilePath,plotengine="それ以外") == output
     if Sys.isapple()
         @test uipathorchestratorschedulrecreate(InputFilePath,plotengine="PlotlyJS") == output
     end
- @test uipathorchestratorschedulrecreate(InputFilePath,plotengine="それ以外") == output
-    OutputTestFilePath=joinpath(@__DIR__, "scheduleoutputtest.xlsx")
-    exportplan(plan,ExcelFilePath=OutputTestFilePath)
+
+    OutputTestFilePath=joinpath(@__DIR__, "UiPathOrchestratorJobSchedulingPlan.xlsx")
+    uipathorchestratorschedulrecreate(InputFilePath,plotengine="off",planexport=true)
     @test isfile(OutputTestFilePath)
     rm(OutputTestFilePath)
 
