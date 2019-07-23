@@ -1,9 +1,6 @@
 using Test
 using DataFrames
 using XLSX
-using Blink
-Blink.AtomShell.install()
-using ORCA
 using UiPathOrchestratorJobSchedulingPlanCreate
 
 @testset "UiPathOrchestratorJobSchedulingPlanCreate.jl" begin
