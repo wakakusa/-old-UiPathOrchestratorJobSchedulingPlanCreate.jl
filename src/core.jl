@@ -1,7 +1,7 @@
 #計算の前提条件読込み
-function readprerequisite(ExcelFilePath::String)
-  parameters=DataFrames.DataFrame(XLSX.readtable(ExcelFilePath, "parameters")...)  
-  scheduleplan=DataFrames.DataFrame(XLSX.readtable(ExcelFilePath, "schedule")...)
+function readprerequisite(ExcelFilePath::String,parameters::String,schedule::String)
+  parameters=DataFrames.DataFrame(XLSX.readtable(ExcelFilePath, parameters)...)  
+  scheduleplan=DataFrames.DataFrame(XLSX.readtable(ExcelFilePath, schedule)...)
 
   # 前提条件設定
   robotn=parameters[parameters[:,:parameter] .== "all_run_robot",:Int][1] #ロボット

@@ -34,7 +34,7 @@ using UiPathOrchestratorJobSchedulingPlanCreate
     InputFilePath=joinpath(@__DIR__, "schedule.xlsx")
     OutputFilePath=joinpath(@__DIR__, "scheduleoutput.xlsx")
 
-    scheduleplan,robotn,run_unit_time,jobn,timen=UiPathOrchestratorJobSchedulingPlanCreate.readprerequisite(InputFilePath)
+    scheduleplan,robotn,run_unit_time,jobn,timen=UiPathOrchestratorJobSchedulingPlanCreate.readprerequisite(InputFilePath,"parameters","schedule")
 
     names!(schedule,names(scheduleplan))
     @test scheduleplan[1:5,1:5] == schedule[1:5,1:5]
@@ -45,15 +45,15 @@ using UiPathOrchestratorJobSchedulingPlanCreate
     plan,r,runtime=uipathorchestratorschedulreadjustment(scheduleplan,robotn,run_unit_time,jobn,timen)
     plan=adjustedresultcheck(plan,runtime,scheduleplan)
     @test plan == output
-    @test uipathorchestratorschedulrecreate(InputFilePath,plotengine="off") == output
-    @test uipathorchestratorschedulrecreate(InputFilePath,plotengine="GR") == output
-    @test uipathorchestratorschedulrecreate(InputFilePath,plotengine="それ以外") == output
+    @test uipathorchestratorschedulrecreate(InputFilePath,"parameters","schedule",plotengine="off") == output
+    @test uipathorchestratorschedulrecreate(InputFilePath,"parameters","schedule",plotengine="GR") == output
+    @test uipathorchestratorschedulrecreate(InputFilePath,"parameters","schedule",plotengine="それ以外") == output
     if Sys.isapple()
-        @test uipathorchestratorschedulrecreate(InputFilePath,plotengine="PlotlyJS") == output
+        @test uipathorchestratorschedulrecreate(InputFilePath,"parameters","schedule",plotengine="PlotlyJS") == output
     end
 
     OutputTestFilePath=joinpath(@__DIR__, "UiPathOrchestratorJobSchedulingPlan.xlsx")
-    uipathorchestratorschedulrecreate(InputFilePath,plotengine="off",planexport=true)
+    uipathorchestratorschedulrecreate(InputFilePath,"parameters","schedule",plotengine="off",planexport=true)
     @test isfile(OutputTestFilePath)
     rm(OutputTestFilePath)
 
