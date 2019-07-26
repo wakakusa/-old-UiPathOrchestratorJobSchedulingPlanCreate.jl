@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.org/wakakusa/UiPathOrchestratorJobSchedulingPlanCreate.jl.svg?branch=master)](https://travis-ci.org/wakakusa/UiPathOrchestratorJobSchedulingPlanCreate.jl)
 [![Coveralls](https://coveralls.io/repos/github/wakakusa/UiPathOrchestratorJobSchedulingPlanCreate.jl/badge.svg?branch=master)](https://coveralls.io/github/wakakusa/UiPathOrchestratorJobSchedulingPlanCreate.jl)
 
+
 ## これは何？
 Uipath Orchestatorで効率的なジョブ実行（必要最低限のロボットで実行）ができるようにジョブのタイムスケジュールを作成するプログラムです
 
@@ -20,4 +21,4 @@ uipathorchestratorschedulrecreate(InputFilePath,"parameters","schedule")
 を実行してください
 
 ## 今後の計画
-いろいろと機能追加予定
+最適なロボット数の算出
